@@ -70,6 +70,7 @@ EOF
   endif
 
   let @z = saved_z
+  let @y = saved_y
 endfunction
 
 nnoremap <leader>ev :call <sid>ExtractToVariable('', '', '')<cr>
