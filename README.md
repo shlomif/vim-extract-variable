@@ -6,10 +6,11 @@ Extract an expression to a variable.
 
 ## Installation
 
-Use one of the hundred of methods that exist to install a vim plugin. I recommend [vim-plug](https://github.com/junegunn/vim-plug):
+Use one of the many methods that exist to install a vim plugin. For example,
+using [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```
-Plug 'fvictorio/vim-extract-variable'
+Plug 'shlomif/vim-extract-variable'
 ```
 
 ## Usage
@@ -30,3 +31,13 @@ The following languages are supported:
 | Make                  | `foo := 42`              |
 | Python                | `foo = 42`               |
 | Ruby                  | `foo = 42`               |
+
+## Credits
+
+This code is based on
+[an older plugin](https://github.com/fvictorio/vim-extract-variable) by
+[Franco Victorio](https://github.com/fvictorio) , so thanks to him!
+
+## License
+
+MIT / Expat .
