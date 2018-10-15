@@ -21,7 +21,6 @@ function! s:ExtractToVariable(visual_mode)
 
   " Yank expression to z register
   let saved_z = @z
-  let saved_y = @y
   if a:visual_mode ==# 'v'
     execute "normal! `<v`>\"zy"
   else
@@ -36,14 +35,13 @@ function! s:ExtractToVariable(visual_mode)
     if l:filetype ==# 'make'
       let replace_expr = "\$(" . replace_expr . ')'
     endif
-    let @y = replace_expr
     " execute "normal! `<v`>s".replace_expr."\<esc>"
     py << EOF
 import vim
 import string
 
 needle = vim.eval('@z')
-repl = vim.eval('@y')
+repl = vim.eval('replace_expr')
 def my_func(s):
     return string.replace(s, needle, repl)
 
@@ -65,7 +63,6 @@ EOF
   endif
 
   let @z = saved_z
-  let @y = saved_y
 endfunction
 
 nnoremap <leader>ev :call <sid>ExtractToVariable('')<cr>
