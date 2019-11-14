@@ -29,6 +29,7 @@ The following languages are supported:
 | Go                    | `foo := 42`              |
 | JavaScript            | `const foo = 42`         |
 | Make                  | `foo := 42`              |
+| TypeScript            | `const foo = 42`         |
 | Python                | `foo = 42`               |
 | Ruby                  | `foo = 42`               |
 
