@@ -11,7 +11,8 @@ function! s:ExtractToVariable(visual_mode, needle, varname)
   endif
 
   " Check if language is supported
-  let l:supported_languages = ['elixir', 'go', 'javascript', 'make', 'python', 'ruby']
+  let l:supported_languages = ['elixir', 'go', 'javascript', 'make', 'typescript', 'python', 'ruby']
+  let l:supported_languages = ['elixir', 'go', 'javascript', 'make', 'typescript', 'python', 'ruby']
   let l:filetype = split(&filetype, '\.')[0]
 
   if index(l:supported_languages, l:filetype) == -1
@@ -53,7 +54,7 @@ def my_func(s):
 EOF
     :'<,$py3do return my_func(line)
 
-    if l:filetype ==# 'javascript'
+    if l:filetype ==# 'javascript' || l:filetype ==# 'typescript'
       execute "normal! Oconst ".varname." = ".@z."\<esc>"
     elseif l:filetype ==# 'make'
       execute "normal! O".varname." := ".@z."\<esc>"
