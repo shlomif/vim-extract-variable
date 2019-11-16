@@ -36,7 +36,7 @@ function! s:ExtractToVariable(visual_mode)
       let replace_expr = "\$(" . replace_expr . ')'
     endif
     " execute "normal! `<v`>s".replace_expr."\<esc>"
-    py << EOF
+    py3 << EOF
 import vim
 import string
 
@@ -46,7 +46,7 @@ def my_func(s):
     return string.replace(s, needle, repl)
 
 EOF
-    :'<,$pydo return my_func(line)
+    :'<,$py3do return my_func(line)
 
     if l:filetype ==# 'javascript'
       execute "normal! Oconst ".varname." = ".@z."\<esc>"
