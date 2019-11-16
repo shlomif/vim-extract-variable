@@ -38,12 +38,11 @@ function! s:ExtractToVariable(visual_mode)
     " execute "normal! `<v`>s".replace_expr."\<esc>"
     py3 << EOF
 import vim
-import string
 
 needle = vim.eval('@z')
 repl = vim.eval('replace_expr')
 def my_func(s):
-    return string.replace(s, needle, repl)
+    return str(s).replace(needle, repl)
 
 EOF
     :'<,$py3do return my_func(line)
