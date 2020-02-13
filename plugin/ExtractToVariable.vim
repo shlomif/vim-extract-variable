@@ -15,7 +15,7 @@ function! s:ExtractToVariable(visual_mode)
   let l:filetype = split(&filetype, '\.')[0]
 
   if index(l:supported_languages, l:filetype) == -1
-    echo l:filetype . ' is not supported. Please open an issue at https://github.com/fvictorio/vim-extract-variable/issues/new'
+    echo l:filetype . ' is not supported. Please open an issue at https://github.com/shlomif/vim-extract-variable/issues/new'
     return
   endif
 
