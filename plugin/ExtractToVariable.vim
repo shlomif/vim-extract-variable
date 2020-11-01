@@ -3,7 +3,7 @@ if exists("g:loaded_extract_variable") || &cp
 endif
 let g:loaded_extract_variable = 1
 
-function! s:ExtractToVariable(visual_mode)
+function! s:ExtractToVariable(visual_mode, needle, varname)
   " Check if 'filetype' is set
   if &filetype == ''
     echo "'filetype' is not set"
@@ -21,14 +21,20 @@ function! s:ExtractToVariable(visual_mode)
 
   " Yank expression to z register
   let saved_z = @z
-  if a:visual_mode ==# 'v'
-    execute "normal! `<v`>\"zy"
+  if needle != ''
+    let @z = needle
   else
-    execute "normal! vib\"zy"
+    if a:visual_mode ==# 'v'
+      execute "normal! `<v`>\"zy"
+    else
+      execute "normal! vib\"zy"
+    endif
   endif
 
   " Ask for variable name
-  let varname = input('Variable name? ')
+  if varname == ''
+    let varname = input('Variable name? ')
+  endif
 
   if varname != ''
     let replace_expr = varname
@@ -64,5 +70,5 @@ EOF
   let @z = saved_z
 endfunction
 
-nnoremap <leader>ev :call <sid>ExtractToVariable('')<cr>
-vnoremap <leader>ev :<c-u>call <sid>ExtractToVariable(visualmode())<cr>
+nnoremap <leader>ev :call <sid>ExtractToVariable('', '', '')<cr>
+vnoremap <leader>ev :<c-u>call <sid>ExtractToVariable(visualmode(), '', '')<cr>
