@@ -61,7 +61,7 @@ EOF
       execute "normal! O".varname." := ".@z."\<esc>"
     elseif l:filetype ==# 'elixir' || l:filetype ==# 'python' || l:filetype ==# 'ruby'
       execute "normal! O".varname." = ".@z."\<esc>"
-    elseif l:filetype ==# 'r' 
+    elseif l:filetype ==# 'r'
       execute "normal! O".varname." <- ".@z."\<esc>"
     endif
   else
