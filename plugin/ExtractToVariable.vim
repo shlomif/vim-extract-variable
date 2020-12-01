@@ -3,7 +3,7 @@ if exists("g:loaded_extract_variable") || &cp
 endif
 let g:loaded_extract_variable = 1
 
-function! s:ExtractToVariable(visual_mode, needle, varname)
+function! g:ExtractToVariable(visual_mode, needle, varname)
   " Check if 'filetype' is set
   if &filetype == ''
     echo "'filetype' is not set"
@@ -20,9 +20,10 @@ function! s:ExtractToVariable(visual_mode, needle, varname)
   endif
 
   " Yank expression to z register
+  let saved_y = @y
   let saved_z = @z
-  if needle != ''
-    let @z = needle
+  if a:needle != ''
+    let @z = a:needle
   else
     if a:visual_mode ==# 'v'
       execute "normal! `<v`>\"zy"
@@ -32,12 +33,12 @@ function! s:ExtractToVariable(visual_mode, needle, varname)
   endif
 
   " Ask for variable name
-  if varname == ''
-    let varname = input('Variable name? ')
+  if a:varname == ''
+    let a:varname = input('Variable name? ')
   endif
 
-  if varname != ''
-    let replace_expr = varname
+  if a:varname != ''
+    let replace_expr = a:varname
     if l:filetype ==# 'make'
       let replace_expr = "\$(" . replace_expr . ')'
     endif
@@ -54,15 +55,15 @@ EOF
     :'<,$py3do return my_func(line)
 
     if l:filetype ==# 'javascript' || l:filetype ==# 'typescript'
-      execute "normal! Oconst ".varname." = ".@z."\<esc>"
+      execute "normal! Oconst ".a:varname." = ".@z."\<esc>"
     elseif l:filetype ==# 'make'
-      execute "normal! O".varname." := ".@z."\<esc>"
+      execute "normal! O".a:varname." := ".@z."\<esc>"
     elseif l:filetype ==# 'go'
-      execute "normal! O".varname." := ".@z."\<esc>"
+      execute "normal! O".a:varname." := ".@z."\<esc>"
     elseif l:filetype ==# 'elixir' || l:filetype ==# 'python' || l:filetype ==# 'ruby'
-      execute "normal! O".varname." = ".@z."\<esc>"
+      execute "normal! O".a:varname." = ".@z."\<esc>"
     elseif l:filetype ==# 'r'
-      execute "normal! O".varname." <- ".@z."\<esc>"
+      execute "normal! O".a:varname." <- ".@z."\<esc>"
     endif
   else
     redraw
